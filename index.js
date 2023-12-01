@@ -4,6 +4,9 @@
 import express from "express";
 import mongoose from 'mongoose';
 import router from "./routes/RecetteRoutes.js";
+
+import userRoute from './routes/UserRoutes.js'; 
+
 const app=express()
 //activer middleware qui est responsable de la gestion des données JSON envoyées dans le corps des requêtes HTTP.
 app.use(express.json());
@@ -11,6 +14,9 @@ app.use(express.json());
 const port = 3000;
 //http://localhost:3000/api/recette(à tester avec postman)
 app.use('/api/recette',router)
+
+//http://localhost:3000/api/user(à tester avec postman)
+app.use('/api/user',userRoute)
 
 //connexion à la base
 mongoose.connect("mongodb://127.0.0.1:27017/GestionRecette")
