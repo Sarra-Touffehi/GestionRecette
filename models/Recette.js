@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
-import autoIncrement from 'mongoose-auto-increment';
+//import autoIncrement from 'mongoose-auto-increment';
 //import mongooseSequence from 'mongoose-sequence';
 
 const { Schema } = mongoose;
-autoIncrement.initialize(mongoose.connection);
+//autoIncrement.initialize(mongoose.connection);
 
 const recetteSchema=new Schema({
    /* recetteId: {
