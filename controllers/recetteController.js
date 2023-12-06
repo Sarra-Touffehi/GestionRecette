@@ -31,7 +31,7 @@ export const getRecetteById = async (req, res, next) => {
     }
 };
 
-export const addRecette = async (req, res, next) => {
+/*export const addRecette = async (req, res, next) => {
     const { nom, ingredients, instructions, image } = req.body;
   
     try {
@@ -49,8 +49,30 @@ export const addRecette = async (req, res, next) => {
       console.log(err);
       return res.status(500).json({ message: "Internal Server Error" });
     }
-  };
+  };*/
 
+export const addRecette = async (req, res, next) => {
+    try {
+        console.log("req.body :",req.body);
+        let newRecette=new Recette({
+            nom:req.body.nom,
+            ingredients:req.body.ingredients,
+            instructions:req.body.instructions,
+            image:req.body.image,
+
+        });
+        // Enregistrez la recette dans la base de données
+    const savedRecette = await newRecette.save();
+    console.log("Recette ajouté avec succès");
+    // Renvoyez les détails de l'étudiant ajouté dans la réponse
+    res.json(savedRecette);
+  } 
+  catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Erreur serveur." });
+  }
+
+}
 
   export const updateRecette = async (req, res, next) => {
     const recetteId = req.params.id;
