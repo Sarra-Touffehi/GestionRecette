@@ -3,11 +3,20 @@
 
 import express from "express";
 import mongoose from 'mongoose';
+import cors from 'cors'; 
 import router from "./routes/RecetteRoutes.js";
 
 import userRoute from './routes/UserRoutes.js'; 
 
 const app=express()
+
+// Enable CORS
+app.use(cors(
+  {
+    origin:"http://localhost:4200"
+  }
+));
+
 //activer middleware qui est responsable de la gestion des données JSON envoyées dans le corps des requêtes HTTP.
 app.use(express.json());
 

@@ -60,7 +60,9 @@ export const login = async (req, res) => {
     // Générer un jeton JWT
     const token = jwt.sign({ email: user.email, userId: user._id }, 'votre_clé_secrète', { expiresIn: '1h' });
 
-    res.status(200).json({ token, userId: user._id });
+    res.status(200).json({ token, 
+      userId: user._id,
+    message :'Login Successfull !' });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Erreur serveur.' });
