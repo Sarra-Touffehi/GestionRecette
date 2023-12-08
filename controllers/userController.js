@@ -30,12 +30,15 @@ export const register = async (req, res) => {
 
    
     await newUser.save();
+   
 
     res.status(201).json({ message: 'Inscription réussie.' });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Erreur serveur.' });
   }
+   //ajouter le comment à la liste des users
+   //user.comments.push(newCommentaire._id);
 };
 
 
@@ -105,3 +108,38 @@ export const updateProfile = async (req, res) => {
 };
 
 
+export const getAllUsers = async(req,res,next)=>{
+  let users;
+  try{
+    //pour récupérer tous les users avec leurs commentaires 
+    users = await User.find().populate('comments');
+  }
+  catch(err){
+      console.log(err);
+  
+  }
+  if(!users){
+      return res.status(404).json({message:"No user found"});
+  }
+  return res.status(200).json({users});
+  }
+
+
+
+  export const getUserById = async (req, res, next) => {
+    const userId = req.params.userId;
+
+    try {
+      //pour récupérer les détails d'un user avec ses commentaires associés
+      //remplit le champ comments dans le user avec les détails réels des commentaires
+        const user = await User.findById(userId).populate('comments');
+        
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        return res.status(200).json({ user });
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({ message: "Internal Server Error" });
+    }
+};

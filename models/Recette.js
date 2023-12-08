@@ -27,7 +27,12 @@ instructions:{
     image:{
         type: String,
         required:true
-    }
+    },
+    //stocker les références des comments dans le modèle de user,
+    comments:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Commentaire',
+        }]
 })
 //// Ajouter le plugin d'auto-incrémentation au schéma
 //recetteSchema.plugin(autoIncrement.plugin, { model: 'Recette', field: 'recetteId', startAt: 1 });
