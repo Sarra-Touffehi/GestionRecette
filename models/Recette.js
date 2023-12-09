@@ -16,7 +16,7 @@ const recetteSchema=new Schema({
         required:true
     },
     ingredients:{
-        type: String,
+        type: [String],
         required:true
     },
 

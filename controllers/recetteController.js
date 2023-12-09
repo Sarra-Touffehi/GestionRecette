@@ -15,6 +15,21 @@ if(!recettes){
 return res.status(200).json({recettes});
 }
 
+export const searchRecettes = async (req, res, next) => {
+    const searchTerm = req.params.searchTerm;
+
+    try {
+        const recettes = await Recette.find({
+            nom: { $regex: new RegExp(searchTerm, 'i') }
+        });
+
+        return res.status(200).json({ recettes });
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ message: "Internal Server Error" });
+    }
+};
+
 
 export const getRecetteById = async (req, res, next) => {
     const recetteId = req.params.id;
