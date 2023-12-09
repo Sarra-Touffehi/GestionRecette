@@ -3,7 +3,9 @@ import Recette from "../models/Recette.js";
 export const getAllRecettes = async(req,res,next)=>{
 let recettes;
 try{
-recettes = await Recette.find();
+    // pour récupérer tous les recettes avec leurs commentaires 
+
+recettes = await Recette.find().populate('comments');
 }
 catch(err){
     console.log(err);
@@ -35,7 +37,8 @@ export const getRecetteById = async (req, res, next) => {
     const recetteId = req.params.id;
 
     try {
-        const recette = await Recette.findById(recetteId);
+        //pour récupérer les détails d'un recette avec ses commentaires associés
+        const recette = await Recette.findById(recetteId).populate('comments');
         if (!recette) {
             return res.status(404).json({ message: "Recette not found" });
         }
@@ -46,25 +49,6 @@ export const getRecetteById = async (req, res, next) => {
     }
 };
 
-/*export const addRecette = async (req, res, next) => {
-    const { nom, ingredients, instructions, image } = req.body;
-  
-    try {
-      const newRecette = new Recette({
-        nom,
-        ingredients,
-        instructions,
-        image,
-      });
-  
-      const savedRecette = await newRecette.save();
-  
-      return res.status(201).json({ recette: savedRecette });
-    } catch (err) {
-      console.log(err);
-      return res.status(500).json({ message: "Internal Server Error" });
-    }
-  };*/
 
 export const addRecette = async (req, res, next) => {
     try {
@@ -79,7 +63,7 @@ export const addRecette = async (req, res, next) => {
         // Enregistrez la recette dans la base de données
     const savedRecette = await newRecette.save();
     console.log("Recette ajouté avec succès");
-    // Renvoyez les détails de l'étudiant ajouté dans la réponse
+    // Renvoyez les détails de la recette ajouté dans la réponse
     res.json(savedRecette);
   } 
   catch (error) {

@@ -11,8 +11,13 @@ const userSchema = new Schema({
     motdepasse: {
         type: String,
     },
-}, { timestamps: true });
-//const User = mongoose.model('User', userSchema);
-//module.exports = User;
+//stocker les références des comments dans le modèle de user,
+    comments:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Commentaire',
+        }]
+},
+ { timestamps: true });
+
 export default mongoose.model('User', userSchema);
 
