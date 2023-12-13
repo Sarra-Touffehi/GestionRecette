@@ -21,7 +21,7 @@ const recetteSchema=new Schema({
     },
 
 instructions:{
-        type: String,
+    type: String,
         required:true
     },
     image:{
@@ -32,7 +32,9 @@ instructions:{
     comments:[{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Commentaire',
-        }]
+        }],
+    user:{type:mongoose.Schema.Types.ObjectId, ref:'User'},
+
 })
 //// Ajouter le plugin d'auto-incrémentation au schéma
 //recetteSchema.plugin(autoIncrement.plugin, { model: 'Recette', field: 'recetteId', startAt: 1 });

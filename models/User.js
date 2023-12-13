@@ -15,7 +15,11 @@ const userSchema = new Schema({
     comments:[{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Commentaire',
-        }]
+        }],
+    recettes:[{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Recettes',
+            }]
 },
  { timestamps: true });
 
